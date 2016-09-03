@@ -32,6 +32,8 @@ class TaskInfoPanel extends JPanel{
 		Font sansSerif14 = new Font("SansSerif", Font.PLAIN, 14);
 		g2d.setFont(sansSerif14);
 		g2d.drawString(name, 8, (int) (HEIGHT * 0.45));
+		g2d.drawString("Time left", 150, (int) (HEIGHT * 0.45));
+		
 		
 	}
 	
