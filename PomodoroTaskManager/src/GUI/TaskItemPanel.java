@@ -3,15 +3,19 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import DataStructures.PomodoroTask;
@@ -26,8 +30,10 @@ class TaskItemPanel extends JPanel{
 	private JButton stopButton;
 	private static final int HEIGHT = 50;
 	private static final int WIDTH = 350;
+	private JPanel taskItemPanel;
 	
 	public TaskItemPanel(PomodoroTask aTask){
+		taskItemPanel = this;
 		task = aTask;
 		border = new Rectangle2D.Double(5, 5, WIDTH - 6, HEIGHT - 10);
 		
@@ -39,6 +45,41 @@ class TaskItemPanel extends JPanel{
 		this.startButton = new JButton();
 		this.stopButton = new JButton();
 		
+		this.stopButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				task.usePomodoroUnit();
+				
+				if (task.getPomodoroUnits() <= task.getUsedPomodoroUnits()){
+					JDialog finished = new JDialog();
+					finished.setTitle("Task completed!");
+					
+					//creating a button that hides OK window
+					JButton ok = new JButton("OK");
+					ok.addActionListener(new ActionListener(){
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							finished.setVisible(false);
+							
+						}
+						
+					});
+					finished.add(ok);
+					finished.setSize(new Dimension(180, 78));
+					finished.setLayout(new FlowLayout());
+					finished.setLocationRelativeTo(null);
+					finished.setVisible(true);
+					//TODO: add removal of task item from the list
+					
+				}
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
 		
 		try{
 			Image startIcon = ImageIO.read(getClass().getResource("/Icons/button-play.png"));
@@ -80,5 +121,6 @@ class TaskItemPanel extends JPanel{
 		g2d.drawString(info, 8, (int) (HEIGHT * 0.75));
 			
 	}
+	
 	
 }

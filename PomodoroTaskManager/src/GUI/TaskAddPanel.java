@@ -33,10 +33,12 @@ class TaskAddPanel extends JPanel{
 	private JPanel panel;
 	private int num;
 	private JButton addBttn;
+	private JPanel parentPanel;
 	
-	public TaskAddPanel(){
+	public TaskAddPanel(JPanel parentPanel){
 		this.panel = this;
 		this.num = 0;
+		this.parentPanel = parentPanel;
 		//setting parameters of this panel
 		this.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		this.setPreferredSize(new Dimension(120,38));
@@ -111,19 +113,6 @@ class TaskAddPanel extends JPanel{
 				alert.setLocationRelativeTo(null);
 			}
 			
-			
-			
-			/*
-			PomodoroTask task = new PomodoroTask("Simple Task " + num, 5, PomodoroTask.MEDIUM_PRIORITY);
-			
-			num ++;
-			
-				System.out.println("Task item added");
-				
-			}
-			*/
-			
-			//((MainWindow) mainFrame).showAddTaskWindow();
 		}
 	}
 	

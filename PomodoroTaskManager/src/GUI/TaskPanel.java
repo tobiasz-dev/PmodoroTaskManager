@@ -29,7 +29,7 @@ class TaskPanel extends JPanel{
 	
 	public TaskPanel(){
 		this.taskPanel = this;
-		this.taskAddPanel = new TaskAddPanel();
+		this.taskAddPanel = new TaskAddPanel(this);
 		this.taskInfoPanel = new TaskInfoPanel();
 		this.taskList = new ArrayList<PomodoroTask>();
 		this.itemPanel = new JPanel();
@@ -61,6 +61,10 @@ class TaskPanel extends JPanel{
 		this.revalidate();
 		this.repaint();
 		
+	}
+	
+	public void removeTask(PomodoroTask task){
+		taskList.remove(task);
 	}
 	
 }

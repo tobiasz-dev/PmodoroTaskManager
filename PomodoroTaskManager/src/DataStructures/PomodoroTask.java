@@ -41,7 +41,7 @@ public class PomodoroTask{
 	 * Substracts a single pomodoro unit from task
 	 */
 	public void usePomodoroUnit(){
-		this.usedPomodoroUnits--;
+		this.usedPomodoroUnits++;
 		}
 	
 	/**
