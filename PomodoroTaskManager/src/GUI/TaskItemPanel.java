@@ -31,8 +31,10 @@ class TaskItemPanel extends JPanel{
 	private static final int HEIGHT = 50;
 	private static final int WIDTH = 350;
 	private JPanel taskItemPanel;
+	private TaskPanel taskPanel;
 	
 	public TaskItemPanel(PomodoroTask aTask){
+	
 		taskItemPanel = this;
 		task = aTask;
 		border = new Rectangle2D.Double(5, 5, WIDTH - 6, HEIGHT - 10);
@@ -71,12 +73,24 @@ class TaskItemPanel extends JPanel{
 					finished.setLayout(new FlowLayout());
 					finished.setLocationRelativeTo(null);
 					finished.setVisible(true);
-					//TODO: add removal of task item from the list
+					
+					taskPanel.removeTask(task);
+					taskPanel.taskRemovedRefresh();
+					taskItemPanel.hide();
 					
 				}
 				revalidate();
 				repaint();
 				
+			}
+			
+		});
+		
+		this.startButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				taskPanel.setCurrentTask(task);
 			}
 			
 		});
@@ -99,6 +113,7 @@ class TaskItemPanel extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g){
+		taskPanel = (TaskPanel) taskItemPanel.getParent().getParent().getParent().getParent(); 
 		String name = this.task.getName();
 		String priority = this.task.priorityToString();
 		int usedPomodoroUnits = this.task.getUsedPomodoroUnits();

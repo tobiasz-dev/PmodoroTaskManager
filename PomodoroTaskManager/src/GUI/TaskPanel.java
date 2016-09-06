@@ -67,4 +67,17 @@ class TaskPanel extends JPanel{
 		taskList.remove(task);
 	}
 	
+	public int getTaskNumber(){
+		return this.taskList.size();
+	}
+	
+	public void taskRemovedRefresh(){
+		((TaskInfoPanel) this.taskInfoPanel).setNoTask();
+		this.taskAddPanel.revalidate();
+		this.taskAddPanel.repaint();
+	}
+	
+	public void setCurrentTask(PomodoroTask task){
+		((TaskInfoPanel) this.taskInfoPanel).setTask(task);
+	}
 }

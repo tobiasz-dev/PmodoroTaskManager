@@ -86,7 +86,7 @@ public class AddTask extends JFrame{
 			int pomodoroNum = Integer.parseInt(pomodoroNumberField.getText().trim());
 			taskNameField.setText("Enter task name");
 			pomodoroNumberField.setText("0");
-						
+			//TODO: setting priority doesn't work
 			//determining priority
 			String priority = priorityBox.getItemAt(priorityBox.getSelectedIndex());
 			int priorityNum = 0;

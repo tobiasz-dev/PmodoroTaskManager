@@ -61,7 +61,8 @@ class TaskAddPanel extends JPanel{
 		Graphics2D g2d = (Graphics2D) g;
 		
 		Font sansSerif14 = new Font("SansSerif", Font.PLAIN,  14);
-		String tasks = "Current tasks: ";
+		int taskNum = ((TaskPanel) this.getParent()).getTaskNumber();
+		String tasks = "Current tasks: " + taskNum;
 		
 		FontRenderContext context = g2d.getFontRenderContext();
 		Rectangle2D bounds = sansSerif14.getStringBounds(tasks, context);
