@@ -2,12 +2,18 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -30,7 +36,7 @@ class TaskPanel extends JPanel{
 	public TaskPanel(){
 		this.taskPanel = this;
 		this.taskAddPanel = new TaskAddPanel(this);
-		this.taskInfoPanel = new TaskInfoPanel();
+		this.taskInfoPanel = new TaskInfoPanel(this);
 		this.taskList = new ArrayList<PomodoroTask>();
 		this.itemPanel = new JPanel();
 		itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.PAGE_AXIS));
@@ -77,7 +83,27 @@ class TaskPanel extends JPanel{
 		this.taskAddPanel.repaint();
 	}
 	
-	public void setCurrentTask(PomodoroTask task){
-		((TaskInfoPanel) this.taskInfoPanel).setTask(task);
+	public void taskStopped(PomodoroTask task, JPanel itemPanel){
+		task.usePomodoroUnit();
+		((TaskInfoPanel) this.taskInfoPanel).stopTask();
+		itemPanel.revalidate();
+		itemPanel.repaint();
+		
+		if (task.getPomodoroUnits() <= task.getUsedPomodoroUnits()){
+			String completed = "Task: " + task.getName() + " completed in " + task.getPomodoroUnits() + " pomodoro.";
+			JOptionPane.showMessageDialog(this, completed);
+
+			
+			this.removeTask(task);
+			this.taskRemovedRefresh();
+			
+			itemPanel.hide();
+			
+		}
+		
+	}
+	
+	public void startCurrentTask(PomodoroTask task, JPanel itemPanel){
+		((TaskInfoPanel) this.taskInfoPanel).startTask(task, itemPanel);
 	}
 }

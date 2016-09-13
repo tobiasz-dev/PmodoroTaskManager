@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import DataStructures.PomodoroTask;
@@ -47,50 +48,13 @@ class TaskItemPanel extends JPanel{
 		this.startButton = new JButton();
 		this.stopButton = new JButton();
 		
-		this.stopButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				task.usePomodoroUnit();
-				
-				if (task.getPomodoroUnits() <= task.getUsedPomodoroUnits()){
-					JDialog finished = new JDialog();
-					finished.setTitle("Task completed!");
-					
-					//creating a button that hides OK window
-					JButton ok = new JButton("OK");
-					ok.addActionListener(new ActionListener(){
-
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							finished.setVisible(false);
-							
-						}
-						
-					});
-					finished.add(ok);
-					finished.setSize(new Dimension(180, 78));
-					finished.setLayout(new FlowLayout());
-					finished.setLocationRelativeTo(null);
-					finished.setVisible(true);
-					
-					taskPanel.removeTask(task);
-					taskPanel.taskRemovedRefresh();
-					taskItemPanel.hide();
-					
-				}
-				revalidate();
-				repaint();
-				
-			}
-			
-		});
+		this.stopButton.addActionListener(new StopAction());
 		
 		this.startButton.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				taskPanel.setCurrentTask(task);
+				taskPanel.startCurrentTask(task, taskItemPanel);
 			}
 			
 		});
@@ -135,6 +99,19 @@ class TaskItemPanel extends JPanel{
 		g2d.setFont(sansSerif14);
 		g2d.drawString(info, 8, (int) (HEIGHT * 0.75));
 			
+	}
+	
+	class StopAction implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			taskPanel.taskStopped(task, taskItemPanel);
+			
+			revalidate();
+			repaint();
+			
+		}
+		
 	}
 	
 	

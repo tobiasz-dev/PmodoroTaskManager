@@ -92,12 +92,15 @@ public class AddTask extends JFrame{
 			int priorityNum = 0;
 			
 			switch (priority){
-				case "High":  priorityNum = PomodoroTask.HIGH_PRIORITY;
+			
+				case "High" :  priorityNum = PomodoroTask.HIGH_PRIORITY;
+				break;
 				
-				case "Medium" : priorityNum = PomodoroTask.MEDIUM_PRIORITY;
+				case "Med" : priorityNum = PomodoroTask.MEDIUM_PRIORITY;
+				break;
 				
 				case "Low" : priorityNum = PomodoroTask.LOW_PRIORITY;
-			
+				break;
 			}
 			//creating task
 			parent.getTaskPanel().createTask(name, pomodoroNum, priorityNum);

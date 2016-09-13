@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.font.FontRenderContext;
@@ -28,6 +29,10 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JWindow;
@@ -51,18 +56,18 @@ class MainWindow extends JFrame{
 	public MainWindow(){
 		super("Pomodoro Task Manager");
 		this.mainWindow = this;
-		this.exitFrame = new ExitQuestion();
 		this.addFrame = new AddTask(this);
 		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//this.setSize(400, 600);
 		this.setVisible(true);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		//this.setLayout(new BorderLayout());
-		//this.add(new TaskAddPanel(), BorderLayout.NORTH);
-		System.out.println(this);
-		taskPanel = new TaskPanel();
+		this.taskPanel = new TaskPanel();
+		
+		JMenuBar menuBar = new JMenuBar();
+		this.createMenuBar(menuBar);
+		this.setJMenuBar(menuBar);
+		
 		this.add(taskPanel);
 		this.pack();
 		
@@ -70,9 +75,11 @@ class MainWindow extends JFrame{
 		this.addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e){
-				
-				exitFrame.setVisible(true);
-				exitFrame.setLocationRelativeTo(mainWindow);
+				int exitQuestion = JOptionPane.showConfirmDialog(mainWindow, "Close the program", "Exit question", JOptionPane.YES_NO_OPTION, JOptionPane.CANCEL_OPTION);
+				if (exitQuestion == JOptionPane.YES_OPTION){
+					System.exit(0);
+				}
+
 			}
 		
 		});
@@ -87,6 +94,36 @@ class MainWindow extends JFrame{
 	
 	public TaskPanel getTaskPanel(){
 		return this.taskPanel;
+	}
+	
+	public void createMenuBar(JMenuBar menuBar){
+		JMenu helpMenu = new JMenu("Help");
+		JMenuItem helpItem = new JMenuItem("Help");
+		JMenuItem settingsItem = new JMenuItem("Settings");
+		
+		helpItem.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});;
+		
+		settingsItem.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});;
+		
+		menuBar.add(helpMenu);
+		helpMenu.add(helpItem);
+		helpMenu.add(settingsItem);
 	}
 
 	

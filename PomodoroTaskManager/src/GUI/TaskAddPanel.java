@@ -99,7 +99,7 @@ class TaskAddPanel extends JPanel{
 			
 			if(num < MAX_POMODORO_TASKS){
 				//ERROR: this should count only pomodoro task created not times button was pressed
-				num ++;
+				//num ++;
 				
 				//displaying add task window
 				JFrame mainFrame;
